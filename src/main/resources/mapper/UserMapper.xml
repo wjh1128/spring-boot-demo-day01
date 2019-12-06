@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hand.hls.train.springbootdemoday01.mapper.IUserMapper">
+    <resultMap id="BaseResultMap" type="com.hand.hls.train.springbootdemoday01.entity.User">
+        <id column="user_id" property="id" jdbcType="INTEGER"/>
+        <result column="user_name" property="username" jdbcType="VARCHAR"/>
+        <result column="age" property="age" jdbcType="BIGINT"/>
+        <result column="create_time" property="createTime" jdbcType="DATE"/>
+    </resultMap>
+
+    <select id="getUserById" resultMap="BaseResultMap">
+        SELECT
+            user_id,
+            user_name,
+            age,
+            create_time
+        FROM
+            user_info
+        WHERE
+            user_id = #{id}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT
+            user_id,
+            user_name,
+            age,
+            create_time
+        FROM
+            user_info
+    </select>
+
+    <insert id="createUser" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO
+            user_info
+             (
+                user_id,
+                user_name,
+                age,
+                create_time
+             )
+        VALUES
+            (
+                #{id},
+                #{username},
+                #{age},
+                #{createTime}
+            )
+    </insert>
+
+    <update id="updateUser">
+        UPDATE user_info
+        SET
+           user_name = #{username},
+           age = #{age}
+        WHERE
+           user_id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM user_info where user_id = #{id}
+    </delete>
+</mapper>
